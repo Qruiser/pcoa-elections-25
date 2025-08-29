@@ -1,0 +1,473 @@
+import React, { useState, useMemo } from 'react';
+import { Search, Filter, Users, BarChart3, Grid, Eye, ChevronDown, ChevronUp } from 'lucide-react';
+
+const ComprehensiveElectionDashboard = () => {
+  const [activeView, setActiveView] = useState('matrix');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedIssue, setSelectedIssue] = useState('All Issues');
+  const [expandedCandidate, setExpandedCandidate] = useState(null);
+
+  // Comprehensive candidate data with issue categorization
+  const candidates = [
+    {
+      number: 1,
+      name: "Surendra Kumar Upadhyay",
+      background: "35+ years Central PSU experience, Former C&IT Head NMDC Limited",
+      issues: {
+        "Water Management": "Not specifically mentioned",
+        "Security & Safety": "Not specifically mentioned", 
+        "Financial Transparency": "Focus on transparent, cost-effective and accountable manner",
+        "Infrastructure": "Use IT tools for better administration",
+        "Community Engagement": "Engage senior citizens and volunteers, form sub-committees",
+        "Administration": "Adopt centralized-decentralized model for PCOA functions"
+      }
+    },
+    {
+      number: 2,
+      name: "Sangeetha Yechuri",
+      background: "Community leader focused on positive change",
+      issues: {
+        "Water Management": "Permanent solutions, not quick fixes - clean water",
+        "Security & Safety": "Safety, security and discipline - stronger together",
+        "Financial Transparency": "Transparent funds for visible growth",
+        "Infrastructure": "Better amenities for healthier living",
+        "Community Engagement": "Listening early, solving fast - tower-level connect",
+        "Administration": "Bye-laws that grow with our community"
+      }
+    },
+    {
+      number: 3,
+      name: "Ashish Kumar",
+      background: "Software Engineer, 11 years experience, J Tower resident 3+ years",
+      issues: {
+        "Water Management": "Ensure good quality water for every resident with long-term solutions",
+        "Security & Safety": "Strict control on delivery persons, strengthen vendor management",
+        "Financial Transparency": "Not specifically mentioned",
+        "Infrastructure": "Even distribution of resources, common area upgrades, beautify entry points",
+        "Community Engagement": "Clean common spaces, children's play areas",
+        "Administration": "Not specifically mentioned"
+      }
+    },
+    {
+      number: 4,
+      name: "Dr. Khetawat Ravinder Raja",
+      background: "ENT Consultant, 14+ years experience",
+      issues: {
+        "Water Management": "Not specifically mentioned",
+        "Security & Safety": "Safety and security - receiving steps for safe environment",
+        "Financial Transparency": "Transparency and discipline - clear communication",
+        "Infrastructure": "Infrastructure and amenities - upgrading common facilities",
+        "Community Engagement": "Community engagement - building stronger connections",
+        "Administration": "Accountable governance"
+      }
+    },
+    {
+      number: 5,
+      name: "Sourabh Deshpande",
+      background: "Resident since 2016, 16+ years experience",
+      issues: {
+        "Water Management": "Reliable and sustainable water management solutions",
+        "Security & Safety": "Enhanced security measures for improved community safety",
+        "Financial Transparency": "Builder transition with clear, trusted checklist",
+        "Infrastructure": "Lift & power infrastructure overhaul, improved parking & traffic",
+        "Community Engagement": "Not specifically mentioned",
+        "Administration": "Not specifically mentioned"
+      }
+    },
+    {
+      number: 7,
+      name: "Amit Singh",
+      background: "MBA Finance, 10+ years experience, PBEL resident 5 years",
+      issues: {
+        "Water Management": "Fix deteriorating podium roads and water leakages",
+        "Security & Safety": "Enhanced main gate security, emergency response",
+        "Financial Transparency": "Reduce common facility costs like guest room charges",
+        "Infrastructure": "Badminton/squash court renovation, sports arena upkeep, swimming pool",
+        "Community Engagement": "Kids & elderly friendly, preserve PBEL diversity",
+        "Administration": "Resolve vehicular movement and vendor management"
+      }
+    },
+    {
+      number: 9,
+      name: "A Ratna Kishore",
+      background: "M.A. & LL.B, 34 years GM Customer Service experience",
+      issues: {
+        "Water Management": "Not specifically mentioned",
+        "Security & Safety": "Not specifically mentioned",
+        "Financial Transparency": "Ensure transparency in all EC activities, reduce unnecessary expenditures",
+        "Infrastructure": "Keep all existing systems running efficiently",
+        "Community Engagement": "Protect rights & interests of every resident",
+        "Administration": "Serve with sincerity & integrity, approachable and accountable"
+      }
+    },
+    {
+      number: 10,
+      name: "Tati Satyanarayana",
+      background: "Proven problem solver, resident 5 years",
+      issues: {
+        "Water Management": "Not specifically mentioned",
+        "Security & Safety": "Not specifically mentioned",
+        "Financial Transparency": "Financial transparency with cost-to-cost basis management",
+        "Infrastructure": "Expand sports and gym facilities",
+        "Community Engagement": "Monthly tower-level meetings, free vaccination drives for children",
+        "Administration": "Leverage personal networks for community benefits"
+      }
+    },
+    {
+      number: 11,
+      name: "Nityananda Dash",
+      background: "Retired Civil Engineer, 42 years experience",
+      issues: {
+        "Water Management": "Quality and quantity management of water - Jal Jeevani",
+        "Security & Safety": "Safe and regulated traffic flow - Safety First",
+        "Financial Transparency": "Not specifically mentioned",
+        "Infrastructure": "Implementation of open gym, improvement of sanitation including STP",
+        "Community Engagement": "Every resident matters in PCOA decision making",
+        "Administration": "Adopt democratic approach, increase digital solutions for efficiency"
+      }
+    },
+    {
+      number: 12,
+      name: "K Rabinarayan Subudhi",
+      background: "13-year resident, active and accountable",
+      issues: {
+        "Water Management": "Pure water, every season",
+        "Security & Safety": "Not specifically mentioned",
+        "Financial Transparency": "Not specifically mentioned",
+        "Infrastructure": "Smooth and safe lifts, better road pavements, public EV points, gym development",
+        "Community Engagement": "Better recreation facilities, better vendor management",
+        "Administration": "Solutions, not promises - together for better PBEL"
+      }
+    },
+    {
+      number: 13,
+      name: "Nishith Ghoshal",
+      background: "13 years in PBEL, new candidate with strong vision",
+      issues: {
+        "Water Management": "Clean water throughout the year - water purification & reliable supply",
+        "Security & Safety": "Not specifically mentioned",
+        "Financial Transparency": "Fixing maid rate card - transparent & fair charges",
+        "Infrastructure": "Reliable lifts, fix parking leakages, podium roads repair, EV charging infrastructure, gym upgradation",
+        "Community Engagement": "Support gym upgradation - modern equipment",
+        "Administration": "Solar energy initiative, beautification of society, mosquito-free PBEL"
+      }
+    },
+    {
+      number: 18,
+      name: "Praveen PM",
+      background: "Committed to transparency and community wellness",
+      issues: {
+        "Water Management": "Reinstate water treatment plants, implemented water harvesting, resolved STP issues",
+        "Security & Safety": "Introduced 24/7 ambulance/EMT service",
+        "Financial Transparency": "Not specifically mentioned",
+        "Infrastructure": "Automate systems, podium driveway rectification, enhanced gardening & landscaping",
+        "Community Engagement": "Launched Science Odyssey for children, enabled wheelchair accessibility",
+        "Administration": "Ensure builder handover with accountability, enhance clinic facility"
+      }
+    },
+    {
+      number: 19,
+      name: "Vizai Kumar Devdas",
+      background: "Retired SBI Chief Manager, 30+ years financial expertise",
+      issues: {
+        "Water Management": "Not specifically mentioned",
+        "Security & Safety": "Maintenance & safety through regular audits, proactive upkeep",
+        "Financial Transparency": "Financial transparency with clear, accountable budgeting",
+        "Infrastructure": "Infrastructure enhancement through resident-informed decisions",
+        "Community Engagement": "Community engagement - empowering youth & elders",
+        "Administration": "30+ years financial expertise, believes in cooperation and consensus"
+      }
+    },
+    {
+      number: 34,
+      name: "Dr. Harjinder Singh Cheema",
+      background: "Retired Professor Statistics, PhD, 80 years, lifelong social worker",
+      issues: {
+        "Water Management": "Not specifically mentioned",
+        "Security & Safety": "Not specifically mentioned",
+        "Financial Transparency": "Fair charges - rationalization of monthly maintenance",
+        "Infrastructure": "Not specifically mentioned",
+        "Community Engagement": "Increase participation through online GBMs, sports & fitness coaching",
+        "Administration": "Make PBEL a model community, open & accessible for concerns"
+      }
+    },
+    {
+      number: 38,
+      name: "Vishnu Vardhan Reddy",
+      background: "15 years social welfare commitment, equality & inclusivity focused",
+      issues: {
+        "Water Management": "Clean and safe water supply, resolve dirty water issues, complete water pipeline project",
+        "Security & Safety": "Install sufficient street lights, ensure reliable security, women and child safety",
+        "Financial Transparency": "Financial transparency - clear sharing of income and expenses",
+        "Infrastructure": "Upgrade gym equipment, wooden flooring badminton court, repair CC roads, fix basement water leakage",
+        "Community Engagement": "Sanitation and waste management, permanent road solution for T-Junction",
+        "Administration": "Build trust through accountability, 15 years commitment to social welfare"
+      }
+    }
+  ];
+
+  const issues = ['All Issues', 'Water Management', 'Security & Safety', 'Financial Transparency', 'Infrastructure', 'Community Engagement', 'Administration'];
+
+  const filteredCandidates = useMemo(() => {
+    return candidates.filter(candidate => {
+      const matchesSearch = candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           Object.values(candidate.issues).some(issue => 
+                             issue.toLowerCase().includes(searchTerm.toLowerCase())
+                           );
+      return matchesSearch;
+    });
+  }, [searchTerm]);
+
+  const getIssueColor = (text) => {
+    if (text === "Not specifically mentioned") return "bg-gray-100 text-gray-500 italic";
+    if (text.length < 50) return "bg-yellow-50 text-yellow-800";
+    if (text.length < 100) return "bg-blue-50 text-blue-800";
+    return "bg-green-50 text-green-800";
+  };
+
+  const MatrixView = () => (
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky left-0 bg-gray-50 z-10 min-w-[200px]">
+                Candidate (No.)
+              </th>
+              {issues.slice(1).map(issue => (
+                <th key={issue} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
+                  {issue}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {filteredCandidates.map(candidate => (
+              <tr key={candidate.number} className="hover:bg-gray-50">
+                <td className="px-4 py-4 sticky left-0 bg-white z-10 border-r border-gray-200">
+                  <div className="font-medium text-gray-900">{candidate.name}</div>
+                  <div className="text-sm text-gray-500">#{candidate.number}</div>
+                </td>
+                {issues.slice(1).map(issue => (
+                  <td key={issue} className="px-4 py-4">
+                    <div className={`text-xs p-2 rounded ${getIssueColor(candidate.issues[issue])}`}>
+                      {candidate.issues[issue]}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
+  const IssueView = () => {
+    const issueAnalysis = useMemo(() => {
+      if (selectedIssue === 'All Issues') return null;
+      
+      const candidatesForIssue = candidates
+        .filter(candidate => candidate.issues[selectedIssue] !== "Not specifically mentioned")
+        .map(candidate => ({
+          ...candidate,
+          issueDetails: candidate.issues[selectedIssue]
+        }))
+        .sort((a, b) => b.issueDetails.length - a.issueDetails.length);
+      
+      return candidatesForIssue;
+    }, [selectedIssue]);
+
+    return (
+      <div className="space-y-6">
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="flex items-center space-x-4 mb-4">
+            <Filter className="w-5 h-5 text-gray-400" />
+            <select
+              value={selectedIssue}
+              onChange={(e) => setSelectedIssue(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              {issues.map(issue => (
+                <option key={issue} value={issue}>{issue}</option>
+              ))}
+            </select>
+          </div>
+          
+          {selectedIssue === 'All Issues' ? (
+            <p className="text-gray-600">Select an issue above to see which candidates have specific plans for that topic.</p>
+          ) : (
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Candidates addressing: {selectedIssue}</h3>
+              {issueAnalysis?.length > 0 ? (
+                <div className="space-y-4">
+                  {issueAnalysis.map(candidate => (
+                    <div key={candidate.number} className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h4 className="font-medium">{candidate.name} (#{candidate.number})</h4>
+                          <p className="text-sm text-gray-500">{candidate.background}</p>
+                        </div>
+                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                          {candidate.issueDetails.length} chars
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded">
+                        {candidate.issueDetails}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 italic">No candidates have specific mentions of this issue in their manifestos.</p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const ProfileView = () => (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {filteredCandidates.map(candidate => (
+        <div key={candidate.number} className="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div className="p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  {candidate.number}
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">{candidate.name}</h3>
+                  <p className="text-sm text-gray-600">{candidate.background}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setExpandedCandidate(
+                  expandedCandidate === candidate.number ? null : candidate.number
+                )}
+                className="text-blue-600 hover:text-blue-800"
+              >
+                {expandedCandidate === candidate.number ? <ChevronUp /> : <ChevronDown />}
+              </button>
+            </div>
+            
+            <div className="space-y-3">
+              {Object.entries(candidate.issues).map(([issue, details]) => (
+                <div key={issue} className={expandedCandidate === candidate.number ? "block" : "hidden"}>
+                  <div className="flex items-start space-x-2">
+                    <span className="font-medium text-sm text-gray-700 min-w-[120px]">{issue}:</span>
+                    <span className={`text-sm ${details === "Not specifically mentioned" ? "text-gray-400 italic" : "text-gray-600"}`}>
+                      {details}
+                    </span>
+                  </div>
+                </div>
+              ))}
+              
+              {expandedCandidate !== candidate.number && (
+                <div className="flex flex-wrap gap-2">
+                  {Object.entries(candidate.issues)
+                    .filter(([_, details]) => details !== "Not specifically mentioned")
+                    .slice(0, 3)
+                    .map(([issue, _]) => (
+                    <span key={issue} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                      {issue}
+                    </span>
+                  ))}
+                  {Object.entries(candidate.issues).filter(([_, details]) => details !== "Not specifically mentioned").length > 3 && (
+                    <span className="text-xs text-gray-500">+{Object.entries(candidate.issues).filter(([_, details]) => details !== "Not specifically mentioned").length - 3} more</span>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderContent = () => {
+    switch(activeView) {
+      case 'matrix': return <MatrixView />;
+      case 'issues': return <IssueView />;
+      case 'profiles': return <ProfileView />;
+      default: return <MatrixView />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">PCOA Election 2025</h1>
+            <p className="text-lg text-gray-600">Comprehensive Candidate Analysis</p>
+            <p className="text-sm text-gray-500">Saturday, August 30, 2025 • PBEL City</p>
+          </div>
+
+          {/* Search */}
+          <div className="relative mb-6">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search candidates or issues..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* View Toggle */}
+          <div className="flex flex-wrap justify-center gap-2">
+            <button
+              onClick={() => setActiveView('matrix')}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                activeView === 'matrix' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Grid className="w-4 h-4" />
+              <span>Comparison Matrix</span>
+            </button>
+            <button
+              onClick={() => setActiveView('issues')}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                activeView === 'issues' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <BarChart3 className="w-4 h-4" />
+              <span>By Issue</span>
+            </button>
+            <button
+              onClick={() => setActiveView('profiles')}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                activeView === 'profiles' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              <span>Candidate Profiles</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        {renderContent()}
+
+        {/* Footer */}
+        <div className="mt-8 bg-white rounded-lg shadow-sm p-6 text-center">
+          <p className="font-semibold mb-2">Analysis showing {filteredCandidates.length} of {candidates.length} candidates</p>
+          <p className="text-sm text-gray-600">Vote on Saturday, August 30, 2025 from 8:00am to 6:00pm at the Club House</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ComprehensiveElectionDashboard;
