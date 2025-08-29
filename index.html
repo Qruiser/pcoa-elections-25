@@ -1,458 +1,477 @@
-import React, { useState, useMemo } from 'react';
-import { User, BarChart3, Grid3X3, FileText } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PBEL City PCOA Elections 2025</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React and ReactDOM CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <!-- Babel CDN for JSX -->
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+  <!-- Lucide-React CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide-react@0.263.0/dist/umd/lucide-react.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
 
-// Candidate data extracted from the PDF
-const candidates = [
-  {
-    id: 1,
-    name: "Surendra Kumar Upadhyay",
-    ballotNo: 1,
-    vision: "Identify collectively short term and long term Society needs",
-    priorities: ["Adopting Centralized-decentralized model", "Using IT Tools", "Engagement of Senior Citizens", "Formation of Sub Committee", "IT Professionals support"],
-    background: "Resident of L-1810",
-    contact: ""
-  },
-  {
-    id: 2,
-    name: "Sangeetha Yechuri",
-    ballotNo: 2,
-    vision: "Vote for Positive Change",
-    priorities: ["Safety, Security and Discipline", "Clean Water Solutions", "Tower-level Connect", "Transparent Funds", "Better Amenities"],
-    background: "C-1801",
-    contact: "9849126174"
-  },
-  {
-    id: 3,
-    name: "Ashish Kumar",
-    ballotNo: 3,
-    vision: "Make PBEL safer, greener, and more vibrant",
-    priorities: ["Water Quality", "Security & Safety", "PBEL Beautification", "Community Development"],
-    background: "Software Engineer with 11+ years experience",
-    contact: ""
-  },
-  {
-    id: 4,
-    name: "Dr. Khetawat Ravinder Raja",
-    ballotNo: 4,
-    vision: "Building a Brighter Future",
-    priorities: ["Safety and Security", "Health and Wellness", "Infrastructure and Amenities", "Transparency", "Community Engagement"],
-    background: "Chairman & Chief ENT Consultant, 14+ years experience",
-    contact: ""
-  },
-  {
-    id: 5,
-    name: "Sourabh Deshpande",
-    ballotNo: 5,
-    vision: "Transparent & Accountable PCOA",
-    priorities: ["Water Management Solution", "Enhanced Security", "Builder transition checklist", "Lift & Power Infrastructure", "Parking & Traffic"],
-    background: "C1105, Resident Since 2016, 16+ Years Experience",
-    contact: ""
-  },
-  {
-    id: 9,
-    name: "A. Ratna Kishore",
-    ballotNo: 9,
-    vision: "Make PBEL City stronger, safer, and happier",
-    priorities: ["Sincerity & Integrity", "Transparency in EC activities", "Efficient systems", "Reduce expenditures", "Protect resident rights"],
-    background: "34 years experience, General Manager Customer Service",
-    contact: ""
-  },
-  {
-    id: 10,
-    name: "Satyanarayan Tati",
-    ballotNo: 10,
-    vision: "Truth in Action",
-    priorities: ["Tower-level Voice", "Children Vaccination Point", "Pest Control", "Sports & Gym Upgrade"],
-    background: "Resident for 5 Years",
-    contact: ""
-  },
-  {
-    id: 11,
-    name: "Nityananda Dash",
-    ballotNo: 11,
-    vision: "Vibrant, eco-friendly housing society",
-    priorities: ["Traffic flow safety", "Water quality management", "Sanitation improvement", "Open gym implementation"],
-    background: "Retired Civil Engineer, 42 years experience",
-    contact: ""
-  },
-  {
-    id: 12,
-    name: "K. Rabinarayan Subudhi",
-    ballotNo: 12,
-    vision: "Together for a better PBEL",
-    priorities: ["Pure Water", "Safe lifts", "EV Points", "Recreation facilities", "Road Pavements", "Mosquito Control"],
-    background: "Resident since 13 years",
-    contact: "+91 9000611942"
-  },
-  {
-    id: 13,
-    name: "Nishit Ghoshal",
-    ballotNo: 13,
-    vision: "Safe, vibrant, inclusive community",
-    priorities: ["Clean Water", "Solar Energy", "Society Beautification", "Reliable Lifts", "Parking solutions"],
-    background: "13 years in PBEL",
-    contact: "+91-9542800023"
-  },
-  {
-    id: 16,
-    name: "Abhijit Awale",
-    ballotNo: 16,
-    vision: "Better living through basic rights",
-    priorities: ["Road repair", "Solar-powered areas", "Flea Market", "Lift Maintenance", "Smart RFID entry"],
-    background: "Scientist, DRDO, 6 years in PBEL",
-    contact: ""
-  },
-  {
-    id: 22,
-    name: "David Dayakar Mesa",
-    ballotNo: 22,
-    vision: "Every penny counts with transparency",
-    priorities: ["Solar Electricity", "Clean Water", "Maintenance", "Gate Redesign", "Financial Management"],
-    background: "40+ years Finance experience",
-    contact: ""
-  },
-  {
-    id: 23,
-    name: "Ritu Sharma",
-    ballotNo: 23,
-    vision: "Commitment to community improvement",
-    priorities: ["Cleanliness", "Security", "Visitor Management", "Lighting", "Infrastructure"],
-    background: "",
-    contact: ""
-  },
-  {
-    id: 30,
-    name: "Vikas Kumar",
-    ballotNo: 30,
-    vision: "Safer, stronger, beautiful PBEL",
-    priorities: ["Resident feedback", "Unauthorized access control", "Beautification", "Water supply", "Infrastructure"],
-    background: "B.Tech & MBA, 21+ years experience",
-    contact: ""
-  },
-  {
-    id: 35,
-    name: "Vijaya Kumar Rasala",
-    ballotNo: 35,
-    vision: "Progress, safety, and sustainability",
-    priorities: ["Automation", "Transparency", "Maintenance", "Water quality", "Security", "Green energy"],
-    background: "20 years IT experience, PGWILP-AIML",
-    contact: "+91-9705500294"
-  }
-];
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+    const { User, BarChart3, Grid3X3, FileText } = window.lucide;
 
-const PBELElectionApp = () => {
-  const [activeView, setActiveView] = useState('profiles');
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
+    // Candidate data
+    const candidates = [
+      {
+        id: 1,
+        name: "Surendra Kumar Upadhyay",
+        ballotNo: 1,
+        vision: "Identify collectively short term and long term Society needs",
+        priorities: ["Adopting Centralized-decentralized model", "Using IT Tools", "Engagement of Senior Citizens", "Formation of Sub Committee", "IT Professionals support"],
+        background: "Resident of L-1810",
+        contact: ""
+      },
+      {
+        id: 2,
+        name: "Sangeetha Yechuri",
+        ballotNo: 2,
+        vision: "Vote for Positive Change",
+        priorities: ["Safety, Security and Discipline", "Clean Water Solutions", "Tower-level Connect", "Transparent Funds", "Better Amenities"],
+        background: "C-1801",
+        contact: "9849126174"
+      },
+      {
+        id: 3,
+        name: "Ashish Kumar",
+        ballotNo: 3,
+        vision: "Make PBEL safer, greener, and more vibrant",
+        priorities: ["Water Quality", "Security & Safety", "PBEL Beautification", "Community Development"],
+        background: "Software Engineer with 11+ years experience",
+        contact: ""
+      },
+      {
+        id: 4,
+        name: "Dr. Khetawat Ravinder Raja",
+        ballotNo: 4,
+        vision: "Building a Brighter Future",
+        priorities: ["Safety and Security", "Health and Wellness", "Infrastructure and Amenities", "Transparency", "Community Engagement"],
+        background: "Chairman & Chief ENT Consultant, 14+ years experience",
+        contact: ""
+      },
+      {
+        id: 5,
+        name: "Sourabh Deshpande",
+        ballotNo: 5,
+        vision: "Transparent & Accountable PCOA",
+        priorities: ["Water Management Solution", "Enhanced Security", "Builder transition checklist", "Lift & Power Infrastructure", "Parking & Traffic"],
+        background: "C1105, Resident Since 2016, 16+ Years Experience",
+        contact: ""
+      },
+      {
+        id: 9,
+        name: "A. Ratna Kishore",
+        ballotNo: 9,
+        vision: "Make PBEL City stronger, safer, and happier",
+        priorities: ["Sincerity & Integrity", "Transparency in EC activities", "Efficient systems", "Reduce expenditures", "Protect resident rights"],
+        background: "34 years experience, General Manager Customer Service",
+        contact: ""
+      },
+      {
+        id: 10,
+        name: "Satyanarayan Tati",
+        ballotNo: 10,
+        vision: "Truth in Action",
+        priorities: ["Tower-level Voice", "Children Vaccination Point", "Pest Control", "Sports & Gym Upgrade"],
+        background: "Resident for 5 Years",
+        contact: ""
+      },
+      {
+        id: 11,
+        name: "Nityananda Dash",
+        ballotNo: 11,
+        vision: "Vibrant, eco-friendly housing society",
+        priorities: ["Traffic flow safety", "Water quality management", "Sanitation improvement", "Open gym implementation"],
+        background: "Retired Civil Engineer, 42 years experience",
+        contact: ""
+      },
+      {
+        id: 12,
+        name: "K. Rabinarayan Subudhi",
+        ballotNo: 12,
+        vision: "Together for a better PBEL",
+        priorities: ["Pure Water", "Safe lifts", "EV Points", "Recreation facilities", "Road Pavements", "Mosquito Control"],
+        background: "Resident since 13 years",
+        contact: "+91 9000611942"
+      },
+      {
+        id: 13,
+        name: "Nishit Ghoshal",
+        ballotNo: 13,
+        vision: "Safe, vibrant, inclusive community",
+        priorities: ["Clean Water", "Solar Energy", "Society Beautification", "Reliable Lifts", "Parking solutions"],
+        background: "13 years in PBEL",
+        contact: "+91-9542800023"
+      },
+      {
+        id: 16,
+        name: "Abhijit Awale",
+        ballotNo: 16,
+        vision: "Better living through basic rights",
+        priorities: ["Road repair", "Solar-powered areas", "Flea Market", "Lift Maintenance", "Smart RFID entry"],
+        background: "Scientist, DRDO, 6 years in PBEL",
+        contact: ""
+      },
+      {
+        id: 22,
+        name: "David Dayakar Mesa",
+        ballotNo: 22,
+        vision: "Every penny counts with transparency",
+        priorities: ["Solar Electricity", "Clean Water", "Maintenance", "Gate Redesign", "Financial Management"],
+        background: "40+ years Finance experience",
+        contact: ""
+      },
+      {
+        id: 23,
+        name: "Ritu Sharma",
+        ballotNo: 23,
+        vision: "Commitment to community improvement",
+        priorities: ["Cleanliness", "Security", "Visitor Management", "Lighting", "Infrastructure"],
+        background: "",
+        contact: ""
+      },
+      {
+        id: 30,
+        name: "Vikas Kumar",
+        ballotNo: 30,
+        vision: "Safer, stronger, beautiful PBEL",
+        priorities: ["Resident feedback", "Unauthorized access control", "Beautification", "Water supply", "Infrastructure"],
+        background: "B.Tech & MBA, 21+ years experience",
+        contact: ""
+      },
+      {
+        id: 35,
+        name: "Vijaya Kumar Rasala",
+        ballotNo: 35,
+        vision: "Progress, safety, and sustainability",
+        priorities: ["Automation", "Transparency", "Maintenance", "Water quality", "Security", "Green energy"],
+        background: "20 years IT experience, PGWILP-AIML",
+        contact: "+91-9705500294"
+      }
+    ];
 
-  // Calculate statistics
-  const stats = useMemo(() => {
-    const totalCandidates = candidates.length;
-    const topIssues = {};
-    
-    candidates.forEach(candidate => {
-      candidate.priorities.forEach(priority => {
-        const key = priority.toLowerCase();
-        if (key.includes('water')) topIssues['Water Management'] = (topIssues['Water Management'] || 0) + 1;
-        if (key.includes('security') || key.includes('safety')) topIssues['Security & Safety'] = (topIssues['Security & Safety'] || 0) + 1;
-        if (key.includes('transparency')) topIssues['Transparency'] = (topIssues['Transparency'] || 0) + 1;
-        if (key.includes('infrastructure') || key.includes('maintenance')) topIssues['Infrastructure'] = (topIssues['Infrastructure'] || 0) + 1;
-        if (key.includes('community')) topIssues['Community Development'] = (topIssues['Community Development'] || 0) + 1;
-      });
-    });
+    const PBELElectionApp = () => {
+      const [activeView, setActiveView] = useState('profiles');
+      const [selectedCandidate, setSelectedCandidate] = useState(null);
 
-    return { totalCandidates, topIssues };
-  }, []);
+      const stats = useMemo(() => {
+        const totalCandidates = candidates.length;
+        const topIssues = {};
+        
+        candidates.forEach(candidate => {
+          candidate.priorities.forEach(priority => {
+            const key = priority.toLowerCase();
+            if (key.includes('water')) topIssues['Water Management'] = (topIssues['Water Management'] || 0) + 1;
+            if (key.includes('security') || key.includes('safety')) topIssues['Security & Safety'] = (topIssues['Security & Safety'] || 0) + 1;
+            if (key.includes('transparency')) topIssues['Transparency'] = (topIssues['Transparency'] || 0) + 1;
+            if (key.includes('infrastructure') || key.includes('maintenance')) topIssues['Infrastructure'] = (topIssues['Infrastructure'] || 0) + 1;
+            if (key.includes('community')) topIssues['Community Development'] = (topIssues['Community Development'] || 0) + 1;
+          });
+        });
 
-  const ViewToggle = () => (
-    <div className="flex flex-wrap gap-2 mb-6 p-1 bg-slate-100 rounded-lg">
-      {[
-        { id: 'profiles', label: 'Candidate Profiles', icon: User },
-        { id: 'comparison', label: 'Issue Comparison', icon: BarChart3 },
-        { id: 'matrix', label: 'Comparison Matrix', icon: Grid3X3 },
-        { id: 'summary', label: 'Issue Summary', icon: FileText }
-      ].map(({ id, label, icon: Icon }) => (
-        <button
-          key={id}
-          onClick={() => setActiveView(id)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-            activeView === id
-              ? 'bg-rose-200 text-rose-800 shadow-sm'
-              : 'text-slate-600 hover:bg-slate-200 hover:text-slate-800'
-          }`}
-        >
-          <Icon size={16} />
-          {label}
-        </button>
-      ))}
-    </div>
-  );
+        return { totalCandidates, topIssues };
+      }, []);
 
-  const CandidateProfiles = () => (
-    <div className="space-y-6">
-      <div className="grid gap-4">
-        {candidates.map(candidate => (
-          <div
-            key={candidate.id}
-            className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow cursor-pointer"
-            onClick={() => setSelectedCandidate(selectedCandidate === candidate.id ? null : candidate.id)}
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-800 rounded-full text-sm font-bold">
-                    {candidate.ballotNo}
-                  </span>
-                  <h3 className="text-lg font-semibold text-slate-800">{candidate.name}</h3>
-                </div>
-                <p className="text-slate-600 text-sm italic">"{candidate.vision}"</p>
-              </div>
-            </div>
-            
-            {selectedCandidate === candidate.id && (
-              <div className="space-y-4 pt-4 border-t border-slate-100">
-                <div>
-                  <h4 className="font-medium text-slate-700 mb-2">Key Priorities:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {candidate.priorities.map((priority, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs"
-                      >
-                        {priority}
+      const ViewToggle = () => (
+        <div className="flex flex-wrap gap-2 mb-6 p-1 bg-slate-100 rounded-lg">
+          {[
+            { id: 'profiles', label: 'Candidate Profiles', icon: User },
+            { id: 'comparison', label: 'Issue Comparison', icon: BarChart3 },
+            { id: 'matrix', label: 'Comparison Matrix', icon: Grid3X3 },
+            { id: 'summary', label: 'Issue Summary', icon: FileText }
+          ].map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              onClick={() => setActiveView(id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                activeView === id
+                  ? 'bg-rose-200 text-rose-800 shadow-sm'
+                  : 'text-slate-600 hover:bg-slate-200 hover:text-slate-800'
+              }`}
+            >
+              <Icon size={16} />
+              {label}
+            </button>
+          ))}
+        </div>
+      );
+
+      const CandidateProfiles = () => (
+        <div className="space-y-6">
+          <div className="grid gap-4">
+            {candidates.map(candidate => (
+              <div
+                key={candidate.id}
+                className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => setSelectedCandidate(selectedCandidate === candidate.id ? null : candidate.id)}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-800 rounded-full text-sm font-bold">
+                        {candidate.ballotNo}
                       </span>
-                    ))}
+                      <h3 className="text-lg font-semibold text-slate-800">{candidate.name}</h3>
+                    </div>
+                    <p className="text-slate-600 text-sm italic">"{candidate.vision}"</p>
                   </div>
                 </div>
                 
-                {candidate.background && (
-                  <div>
-                    <h4 className="font-medium text-slate-700 mb-2">Background:</h4>
-                    <p className="text-slate-600 text-sm">{candidate.background}</p>
+                {selectedCandidate === candidate.id && (
+                  <div className="space-y-4 pt-4 border-t border-slate-100">
+                    <div>
+                      <h4 className="font-medium text-slate-700 mb-2">Key Priorities:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {candidate.priorities.map((priority, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs"
+                          >
+                            {priority}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {candidate.background && (
+                      <div>
+                        <h4 className="font-medium text-slate-700 mb-2">Background:</h4>
+                        <p className="text-slate-600 text-sm">{candidate.background}</p>
+                      </div>
+                    )}
+                    
+                    {candidate.contact && (
+                      <div>
+                        <h4 className="font-medium text-slate-700 mb-2">Contact:</h4>
+                        <p className="text-slate-600 text-sm">{candidate.contact}</p>
+                      </div>
+                    )}
                   </div>
                 )}
-                
-                {candidate.contact && (
-                  <div>
-                    <h4 className="font-medium text-slate-700 mb-2">Contact:</h4>
-                    <p className="text-slate-600 text-sm">{candidate.contact}</p>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-  const IssueComparison = () => {
-    const issueCategories = {
-      'Water Management': ['water', 'quality', 'supply', 'clean'],
-      'Security & Safety': ['security', 'safety', 'safe'],
-      'Infrastructure': ['infrastructure', 'maintenance', 'repair', 'lift', 'road'],
-      'Transparency': ['transparency', 'accountable', 'governance'],
-      'Community Development': ['community', 'amenities', 'development'],
-      'Environment': ['green', 'clean', 'environment', 'solar']
-    };
-
-    const issueStats = Object.entries(issueCategories).map(([issue, keywords]) => {
-      const count = candidates.filter(candidate =>
-        candidate.priorities.some(priority =>
-          keywords.some(keyword =>
-            priority.toLowerCase().includes(keyword)
-          )
-        )
-      ).length;
-      return { issue, count, percentage: (count / candidates.length * 100).toFixed(1) };
-    });
-
-    return (
-      <div className="space-y-6">
-        <div className="bg-white border border-slate-200 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-slate-800 mb-4">Most Discussed Issues</h3>
-          <div className="space-y-4">
-            {issueStats.sort((a, b) => b.count - a.count).map(({ issue, count, percentage }) => (
-              <div key={issue} className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-slate-700">{issue}</span>
-                  <span className="text-sm text-slate-600">{count} candidates ({percentage}%)</span>
-                </div>
-                <div className="w-full bg-slate-200 rounded-full h-2">
-                  <div
-                    className="bg-rose-400 h-2 rounded-full transition-all duration-500"
-                    style={{ width: `${percentage}%` }}
-                  />
-                </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    );
-  };
+      );
 
-  const ComparisonMatrix = () => {
-    const issues = ['Water', 'Security', 'Infrastructure', 'Transparency', 'Community'];
-    
-    const candidateIssueMatrix = candidates.map(candidate => {
-      const issueSupport = issues.map(issue => {
-        const keywords = {
-          'Water': ['water', 'quality', 'supply'],
-          'Security': ['security', 'safety', 'safe'],
-          'Infrastructure': ['infrastructure', 'maintenance', 'repair'],
-          'Transparency': ['transparency', 'accountable'],
-          'Community': ['community', 'amenities', 'development']
+      const IssueComparison = () => {
+        const issueCategories = {
+          'Water Management': ['water', 'quality', 'supply', 'clean'],
+          'Security & Safety': ['security', 'safety', 'safe'],
+          'Infrastructure': ['infrastructure', 'maintenance', 'repair', 'lift', 'road'],
+          'Transparency': ['transparency', 'accountable', 'governance'],
+          'Community Development': ['community', 'amenities', 'development'],
+          'Environment': ['green', 'clean', 'environment', 'solar']
         };
-        
-        return candidate.priorities.some(priority =>
-          keywords[issue].some(keyword =>
-            priority.toLowerCase().includes(keyword)
-          )
-        );
-      });
-      
-      return { candidate, issueSupport };
-    });
 
-    return (
-      <div className="bg-white border border-slate-200 rounded-xl p-6 overflow-x-auto">
-        <h3 className="text-lg font-semibold text-slate-800 mb-4">Candidate-Issue Matrix</h3>
-        <div className="min-w-full">
-          <table className="w-full text-sm">
-            <thead>
-              <tr>
-                <th className="text-left p-3 font-medium text-slate-700 border-b border-slate-200">Candidate</th>
-                {issues.map(issue => (
-                  <th key={issue} className="text-center p-3 font-medium text-slate-700 border-b border-slate-200 min-w-20">
-                    {issue}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {candidateIssueMatrix.map(({ candidate, issueSupport }, idx) => (
-                <tr key={candidate.id} className={idx % 2 === 0 ? 'bg-slate-50' : ''}>
-                  <td className="p-3 border-b border-slate-100">
-                    <div className="flex items-center gap-2">
-                      <span className="flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">
-                        {candidate.ballotNo}
-                      </span>
-                      <span className="font-medium text-sm">{candidate.name.split(' ').slice(0, 2).join(' ')}</span>
+        const issueStats = Object.entries(issueCategories).map(([issue, keywords]) => {
+          const count = candidates.filter(candidate =>
+            candidate.priorities.some(priority =>
+              keywords.some(keyword =>
+                priority.toLowerCase().includes(keyword)
+              )
+            )
+          ).length;
+          return { issue, count, percentage: (count / candidates.length * 100).toFixed(1) };
+        });
+
+        return (
+          <div className="space-y-6">
+            <div className="bg-white border border-slate-200 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-slate-800 mb-4">Most Discussed Issues</h3>
+              <div className="space-y-4">
+                {issueStats.sort((a, b) => b.count - a.count).map(({ issue, count, percentage }) => (
+                  <div key={issue} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium text-slate-700">{issue}</span>
+                      <span className="text-sm text-slate-600">{count} candidates ({percentage}%)</span>
                     </div>
-                  </td>
-                  {issueSupport.map((supports, issueIdx) => (
-                    <td key={issueIdx} className="p-3 text-center border-b border-slate-100">
-                      <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full ${
-                        supports ? 'bg-green-200 text-green-800' : 'bg-slate-200 text-slate-500'
-                      }`}>
-                        {supports ? '✓' : '—'}
-                      </span>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
+                    <div className="w-full bg-slate-200 rounded-full h-2">
+                      <div
+                        className="bg-rose-400 h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${percentage}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      };
 
-  const IssueSummary = () => {
-    const issueGroups = {
-      'Water Quality & Management': candidates.filter(c => 
-        c.priorities.some(p => p.toLowerCase().includes('water'))
-      ),
-      'Security & Safety': candidates.filter(c => 
-        c.priorities.some(p => p.toLowerCase().includes('security') || p.toLowerCase().includes('safety'))
-      ),
-      'Infrastructure & Maintenance': candidates.filter(c => 
-        c.priorities.some(p => p.toLowerCase().includes('infrastructure') || p.toLowerCase().includes('maintenance'))
-      ),
-      'Transparency & Governance': candidates.filter(c => 
-        c.priorities.some(p => p.toLowerCase().includes('transparency') || p.toLowerCase().includes('governance'))
-      )
+      const ComparisonMatrix = () => {
+        const issues = ['Water', 'Security', 'Infrastructure', 'Transparency', 'Community'];
+        
+        const candidateIssueMatrix = candidates.map(candidate => {
+          const issueSupport = issues.map(issue => {
+            const keywords = {
+              'Water': ['water', 'quality', 'supply'],
+              'Security': ['security', 'safety', 'safe'],
+              'Infrastructure': ['infrastructure', 'maintenance', 'repair'],
+              'Transparency': ['transparency', 'accountable'],
+              'Community': ['community', 'amenities', 'development']
+            };
+            
+            return candidate.priorities.some(priority =>
+              keywords[issue].some(keyword =>
+                priority.toLowerCase().includes(keyword)
+              )
+            );
+          });
+          
+          return { candidate, issueSupport };
+        });
+
+        return (
+          <div className="bg-white border border-slate-200 rounded-xl p-6 overflow-x-auto">
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">Candidate-Issue Matrix</h3>
+            <div className="min-w-full">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr>
+                    <th className="text-left p-3 font-medium text-slate-700 border-b border-slate-200">Candidate</th>
+                    {issues.map(issue => (
+                      <th key={issue} className="text-center p-3 font-medium text-slate-700 border-b border-slate-200 min-w-20">
+                        {issue}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {candidateIssueMatrix.map(({ candidate, issueSupport }, idx) => (
+                    <tr key={candidate.id} className={idx % 2 === 0 ? 'bg-slate-50' : ''}>
+                      <td className="p-3 border-b border-slate-100">
+                        <div className="flex items-center gap-2">
+                          <span className="flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">
+                            {candidate.ballotNo}
+                          </span>
+                          <span className="font-medium text-sm">{candidate.name.split(' ').slice(0, 2).join(' ')}</span>
+                        </div>
+                      </td>
+                      {issueSupport.map((supports, issueIdx) => (
+                        <td key={issueIdx} className="p-3 text-center border-b border-slate-100">
+                          <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full ${
+                            supports ? 'bg-green-200 text-green-800' : 'bg-slate-200 text-slate-500'
+                          }`}>
+                            {supports ? '✓' : '—'}
+                          </span>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+      };
+
+      const IssueSummary = () => {
+        const issueGroups = {
+          'Water Quality & Management': candidates.filter(c => 
+            c.priorities.some(p => p.toLowerCase().includes('water'))
+          ),
+          'Security & Safety': candidates.filter(c => 
+            c.priorities.some(p => p.toLowerCase().includes('security') || p.toLowerCase().includes('safety'))
+          ),
+          'Infrastructure & Maintenance': candidates.filter(c => 
+            c.priorities.some(p => p.toLowerCase().includes('infrastructure') || p.toLowerCase().includes('maintenance'))
+          ),
+          'Transparency & Governance': candidates.filter(c => 
+            c.priorities.some(p => p.toLowerCase().includes('transparency') || p.toLowerCase().includes('governance'))
+          )
+        };
+
+        return (
+          <div className="space-y-6">
+            {Object.entries(issueGroups).map(([issue, candidateList]) => (
+              <div key={issue} className="bg-white border border-slate-200 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-slate-800 mb-4">
+                  {issue} ({candidateList.length} candidates)
+                </h3>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {candidateList.slice(0, 6).map(candidate => (
+                    <div key={candidate.id} className="border border-slate-100 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">
+                          {candidate.ballotNo}
+                        </span>
+                        <span className="font-medium text-sm">{candidate.name.split(' ').slice(0, 2).join(' ')}</span>
+                      </div>
+                      <p className="text-xs text-slate-600 italic mb-2">"{candidate.vision.substring(0, 60)}..."</p>
+                      <div className="flex flex-wrap gap-1">
+                        {candidate.priorities.slice(0, 2).map((priority, idx) => (
+                          <span key={idx} className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
+                            {priority.length > 20 ? priority.substring(0, 20) + '...' : priority}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  {candidateList.length > 6 && (
+                    <div className="border border-slate-100 rounded-lg p-4 flex items-center justify-center">
+                      <span className="text-slate-500 text-sm">+{candidateList.length - 6} more</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      };
+
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-rose-50">
+          <div className="container mx-auto px-4 py-8 max-w-7xl">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
+                PBEL City PCOA Elections 2025
+              </h1>
+              <p className="text-slate-600 mb-4">Candidate Information & Analysis</p>
+              <div className="flex flex-wrap justify-center gap-4 text-sm">
+                <div className="bg-white px-4 py-2 rounded-full border border-slate-200">
+                  <span className="font-medium text-slate-700">{stats.totalCandidates}</span>
+                  <span className="text-slate-500 ml-1">Total Candidates</span>
+                </div>
+                <div className="bg-white px-4 py-2 rounded-full border border-slate-200">
+                  <span className="font-medium text-slate-700">Election Date:</span>
+                  <span className="text-slate-500 ml-1">August 30, 2025</span>
+                </div>
+              </div>
+            </div>
+
+            <ViewToggle />
+
+            <div className="mb-8">
+              {activeView === 'profiles' && <CandidateProfiles />}
+              {activeView === 'comparison' && <IssueComparison />}
+              {activeView === 'matrix' && <ComparisonMatrix />}
+              {activeView === 'summary' && <IssueSummary />}
+            </div>
+
+            <div className="text-center pt-8 border-t border-slate-200">
+              <p className="text-slate-500 text-sm">
+                PBEL City PCOA Elections 2025 - Candidate Data Visualization
+              </p>
+            </div>
+          </div>
+        </div>
+      );
     };
 
-    return (
-      <div className="space-y-6">
-        {Object.entries(issueGroups).map(([issue, candidateList]) => (
-          <div key={issue} className="bg-white border border-slate-200 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-4">
-              {issue} ({candidateList.length} candidates)
-            </h3>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {candidateList.slice(0, 6).map(candidate => (
-                <div key={candidate.id} className="border border-slate-100 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">
-                      {candidate.ballotNo}
-                    </span>
-                    <span className="font-medium text-sm">{candidate.name.split(' ').slice(0, 2).join(' ')}</span>
-                  </div>
-                  <p className="text-xs text-slate-600 italic mb-2">"{candidate.vision.substring(0, 60)}..."</p>
-                  <div className="flex flex-wrap gap-1">
-                    {candidate.priorities.slice(0, 2).map((priority, idx) => (
-                      <span key={idx} className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
-                        {priority.length > 20 ? priority.substring(0, 20) + '...' : priority}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              {candidateList.length > 6 && (
-                <div className="border border-slate-100 rounded-lg p-4 flex items-center justify-center">
-                  <span className="text-slate-500 text-sm">+{candidateList.length - 6} more</span>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-rose-50">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
-            PBEL City PCOA Elections 2025
-          </h1>
-          <p className="text-slate-600 mb-4">Candidate Information & Analysis</p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <div className="bg-white px-4 py-2 rounded-full border border-slate-200">
-              <span className="font-medium text-slate-700">{stats.totalCandidates}</span>
-              <span className="text-slate-500 ml-1">Total Candidates</span>
-            </div>
-            <div className="bg-white px-4 py-2 rounded-full border border-slate-200">
-              <span className="font-medium text-slate-700">Election Date:</span>
-              <span className="text-slate-500 ml-1">August 30, 2025</span>
-            </div>
-          </div>
-        </div>
-
-        {/* View Toggle */}
-        <ViewToggle />
-
-        {/* Main Content */}
-        <div className="mb-8">
-          {activeView === 'profiles' && <CandidateProfiles />}
-          {activeView === 'comparison' && <IssueComparison />}
-          {activeView === 'matrix' && <ComparisonMatrix />}
-          {activeView === 'summary' && <IssueSummary />}
-        </div>
-
-        {/* Footer */}
-        <div className="text-center pt-8 border-t border-slate-200">
-          <p className="text-slate-500 text-sm">
-            PBEL City PCOA Elections 2025 - Candidate Data Visualization
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default PBELElectionApp;
+    // Render the app
+    ReactDOM.render(<PBELElectionApp />, document.getElementById('root'));
+  </script>
+</body>
+</html>
