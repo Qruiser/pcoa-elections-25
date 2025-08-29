@@ -55,10 +55,10 @@
         );
         
         const ComprehensiveElectionDashboard = () => {
-          const [activeView, setActiveView] = useState('matrix');
+          const [activeView, setActiveView] = useState('profiles');
           const [searchTerm, setSearchTerm] = useState('');
           const [selectedIssue, setSelectedIssue] = useState('All Issues');
-          const [expandedCandidate, setExpandedCandidate] = useState(null);
+          const [expandedCandidate, setExpandedCandidate] = useState('all');
 
           // Comprehensive candidate data with issue categorization
           const candidates = [
@@ -402,13 +402,13 @@
                         )}
                         className="text-blue-600 hover:text-blue-800"
                       >
-                        {expandedCandidate === candidate.number ? <ChevronUp /> : <ChevronDown />}
+                        {(expandedCandidate === candidate.number || expandedCandidate === 'all') ? <ChevronUp /> : <ChevronDown />}
                       </button>
                     </div>
                     
                     <div className="space-y-3">
                       {Object.entries(candidate.issues).map(([issue, details]) => (
-                        <div key={issue} className={expandedCandidate === candidate.number ? "block" : "hidden"}>
+                        <div key={issue} className={(expandedCandidate === candidate.number || expandedCandidate === 'all') ? "block" : "hidden"}>
                           <div className="flex items-start space-x-2">
                             <span className="font-medium text-sm text-gray-700 min-w-[120px]">{issue}:</span>
                             <span className={`text-sm ${details === "Not specifically mentioned" ? "text-gray-400 italic" : "text-gray-600"}`}>
@@ -418,7 +418,7 @@
                         </div>
                       ))}
                       
-                      {expandedCandidate !== candidate.number && (
+                      {(expandedCandidate !== candidate.number && expandedCandidate !== 'all') && (
                         <div className="flex flex-wrap gap-2">
                           {Object.entries(candidate.issues)
                             .filter(([_, details]) => details !== "Not specifically mentioned")
