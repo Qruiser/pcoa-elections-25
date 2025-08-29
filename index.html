@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCOA Election 2025 - Candidate Analysis</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // Paste the entire React component code here
+        const { useState, useMemo } = React;
+        const { Search, Filter, Users, BarChart3, Grid, Eye, ChevronDown, ChevronUp } = lucideReact;
+        
 import React, { useState, useMemo } from 'react';
 import { Search, Filter, Users, BarChart3, Grid, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -470,4 +489,9 @@ const ComprehensiveElectionDashboard = () => {
   );
 };
 
-export default ComprehensiveElectionDashboard;
+export default ComprehensiveElectionDashboard;        
+        ReactDOM.render(<ComprehensiveElectionDashboard />, document.getElementById('root'));
+    </script>
+</body>
+</html>
+
