@@ -18,14 +18,14 @@
   <script type="text/babel">
     const { useState, useMemo } = React;
 
-    // Candidate data
+    // Updated Candidate data
     const candidates = [
       {
         id: 1,
         name: "Surendra Kumar Upadhyay",
         ballotNo: 1,
-        vision: "Identify collectively short term and long term Society needs",
-        priorities: ["Adopting Centralized-decentralized model", "Using IT Tools", "Engagement of Senior Citizens", "Formation of Sub Committee", "IT Professionals support"],
+        vision: "TO GATHER WE CAN ACHIEVE MORE",
+        priorities: ["Adopting Centralized - decentralized model", "Using IT Tools", "Engagement of Senior Citizens", "Formation of Sub Committee for identified", "Seeking support from IT Professionals small modules support as per need in different functional areas"],
         background: "Resident of L-1810",
         contact: ""
       },
@@ -33,8 +33,8 @@
         id: 2,
         name: "Sangeetha Yechuri",
         ballotNo: 2,
-        vision: "Vote for Positive Change",
-        priorities: ["Safety, Security and Discipline", "Clean Water Solutions", "Tower-level Connect", "Transparent Funds", "Better Amenities"],
+        vision: "Vote for Positive Change!",
+        priorities: ["Safety, Security and Discipline: Stronger Together", "Permanent Solutions, Not Quick Fixes: Clean Water", "Listening Early, Solving Fast: Tower-level Connect", "Transparent Funds: Visible Growth with our community", "Bye-laws that grow with our community", "Better Amenities: Healthier Living"],
         background: "C-1801",
         contact: "9849126174"
       },
@@ -42,9 +42,9 @@
         id: 3,
         name: "Ashish Kumar",
         ballotNo: 3,
-        vision: "Make PBEL safer, greener, and more vibrant",
-        priorities: ["Water Quality", "Security & Safety", "PBEL Beautification", "Community Development"],
-        background: "Software Engineer with 11+ years experience",
+        vision: "Together, we will make PBEL a safer, greener, and more vibrant place to live. Your vote is your voice—let's bring positive change to our community!",
+        priorities: ["Water Quality: Treat good quality water for every resident long term with management to implement, Regular testing and transparent reporting of water quality", "Security & Safety: Crack down on unauthorized individual room rentals & delivery systems & Strengthen visitor monitoring systems, Promote Emergency Preparedness for Residents", "PBEL Beautification: Even distribution of resources across all towers & areas, More plants and clean common spaces, Beautiful entry points and children's play areas", "Community Development: Organize more cultural & sports activities for residents through, Promote transparency in EC Decisions, Regular updates on maintenance funds for equal development"],
+        background: "Software Engineer with 11 years of professional experience, Proud PBEL resident J Tower for the past 3+ years",
         contact: ""
       },
       {
@@ -52,108 +52,261 @@
         name: "Dr. Khetawat Ravinder Raja",
         ballotNo: 4,
         vision: "Building a Brighter Future",
-        priorities: ["Safety and Security", "Health and Wellness", "Infrastructure and Amenities", "Transparency", "Community Engagement"],
-        background: "Chairman & Chief ENT Consultant, 14+ years experience",
+        priorities: ["Safety & Security: Protective steps for a safe, secure living environment", "Health & Wellness Initiatives: Creating programs for preventive healthcare and fitness", "Infrastructure & Amenities: Bringing functional facilities for better living", "Transparency & Discipline: Clear communication and accountable governance", "Community Engagement: Events and activities to build a strong, connected neighborhood"],
+        background: "Chairman & Chief ENT Consultant - Experienced leader in healthcare and community well-being, 14+ years of Experience",
         contact: ""
       },
       {
         id: 5,
         name: "Sourabh Deshpande",
         ballotNo: 5,
-        vision: "Transparent & Accountable PCOA",
-        priorities: ["Water Management Solution", "Enhanced Security", "Builder transition checklist", "Lift & Power Infrastructure", "Parking & Traffic"],
-        background: "C1105, Resident Since 2016, 16+ Years Experience",
+        vision: "Transparent & Accountable PCOA Members.. Your Voice. Your Choice!",
+        priorities: ["Reliable and Sustainable Water Management Solution", "Enhanced Security Measures for Improved Community Safety", "Builder transition with a clear, trusted Checklist", "Lift & Power Infrastructure Overhaul", "Improved Parking & Traffic Regulation"],
+        background: "Resident Since 2016, Active & Approachable +16 Years of Experience, C1105",
+        contact: ""
+      },
+      {
+        id: 7,
+        name: "Amit Singh",
+        ballotNo: 7,
+        vision: "Together for a Better Future",
+        priorities: ["Secure & Safe PBEL City. Enhanced main gate security, Emergency response, Kids Friendly, Elderly Friendly", "Amenities up-gradation: Badminton/squash court renovation, Gym equipment management, sports arena upgrade, swimming pool maintenance, new vendor for food court.", "Resolving issues with vehicular movement including vendor management, water issues.", "Deteriorating condition of podium roads, water leakages in basement, making podium pedestrian friendly.", "Reduce cost - Reduce common facility costs like guest room charges.", "Green and Clean PBEL city - no mosquito breeding grounds, regular cutting of grass", "Last but not the least the beauty of PBEL city lies in its DIVERSITY so lets preserve it."],
+        background: "PCOA Election 2025 - Vote for Amit Singh (MBA Finance) 10+ Yrs Experience/PBEL CITY RESIDENT - 5 YRS)",
         contact: ""
       },
       {
         id: 9,
         name: "A. Ratna Kishore",
         ballotNo: 9,
-        vision: "Make PBEL City stronger, safer, and happier",
-        priorities: ["Sincerity & Integrity", "Transparency in EC activities", "Efficient systems", "Reduce expenditures", "Protect resident rights"],
-        background: "34 years experience, General Manager Customer Service",
+        vision: "Together, let's make PBEL City stronger, safer, and happier!",
+        priorities: ["Serve with Sincerity & Integrity", "Ensure Transparency in all EC activities for the next 2 years", "Keep all existing systems running efficiently", "Work to reduce unnecessary expenditures", "Protect the rights & interests of every resident"],
+        background: "Resident of Tower H, Education: MA & LLB, Experience: 34 years in Hyderabad-based company, retired as General Manager Customer Service (India & Overseas)",
         contact: ""
       },
       {
         id: 10,
-        name: "Satyanarayan Tati",
+        name: "Satyanarayana Tati",
         ballotNo: 10,
-        vision: "Truth in Action",
-        priorities: ["Tower-level Voice", "Children Vaccination Point", "Pest Control", "Sports & Gym Upgrade"],
-        background: "Resident for 5 Years",
+        vision: "Vote for Truth in Action",
+        priorities: ["Tower-level Voice", "Govt. Free Children Vaccination Point", "Effective Pest Control", "Sports & Gym Upgrade/Extension"],
+        background: "Resident for 5 Years, A.B.P Towers",
         contact: ""
       },
       {
         id: 11,
         name: "Nityananda Dash",
         ballotNo: 11,
-        vision: "Vibrant, eco-friendly housing society",
-        priorities: ["Traffic flow safety", "Water quality management", "Sanitation improvement", "Open gym implementation"],
+        vision: "Retired Civil Engineer, with 42 years of experience in all types of civil engineering structures. Resident of PBEL City since 2018. My Motto is to make PBEL City a vibrant, eco-friendly, and well managed housing society",
+        priorities: ["Safe and regulated traffic flow - Safety First", "Quality and quantity management of water - Jal Jeevani", "Improvement of sanitation including STP reinstatement - Cleaner PBEL", "Implementation of an open gym - Healthy PBEL", "Solve PCOA administrative issues - Happy residents", "Adopt a democratic approach in PCOA decision making - Every resident matters", "Increase adoption of digital solutions in PCOA - Operational Efficiency"],
         background: "Retired Civil Engineer, 42 years experience",
         contact: ""
       },
       {
         id: 12,
-        name: "K. Rabinarayan Subudhi",
+        name: "K Rabinarayan Subudhi",
         ballotNo: 12,
-        vision: "Together for a better PBEL",
-        priorities: ["Pure Water", "Safe lifts", "EV Points", "Recreation facilities", "Road Pavements", "Mosquito Control"],
-        background: "Resident since 13 years",
+        vision: "WHY VOTE ME? Resident since 13 years, With you, for you, Always, Active,Approachable and Accountable, Solutions, Not promises, Together for a better PBEL",
+        priorities: ["Pure Water Every Season", "Smooth and Safe Lifts", "Public EV Points", "Better Recreation facilities", "Better Road Pavements", "Better Mosquito Control", "Gym Development", "Better vendor management", "Upgradation of Healthcare"],
+        background: "Resident since 13 years, P 1301",
         contact: "+91 9000611942"
       },
       {
         id: 13,
-        name: "Nishit Ghoshal",
+        name: "Nishith Ghoshal",
         ballotNo: 13,
-        vision: "Safe, vibrant, inclusive community",
-        priorities: ["Clean Water", "Solar Energy", "Society Beautification", "Reliable Lifts", "Parking solutions"],
-        background: "13 years in PBEL",
+        vision: "To create a safe, vibrant, and inclusive community where every resident feels valued, heard,and empowered.",
+        priorities: ["Clean Water Through the Year - Water purification & reliable supply", "Solar Energy Initiative - Move towards renewable sources", "Beautification of Society - Greener, cleaner, and vibrant surroundings", "Reliable Lifts - Regular maintenance for safe & smooth operations", "Fix Parking Leakages - Permanent solution for seepage issues.", "Fixing Maid Rate Card - Transparent & fair household help charges.", "Production Repair - Safe, smooth roads inside PBEL - Future-ready facilities for electric vehicles", "Mosquito-Free PBEL - Preventive measures for healthier living", "Support Gym Upgradation - Modern equipment, better fitness options."],
+        background: "NEW CANDIDATE STRONG VISION -Together. Lets Build A Better PBELI M-705, A-704 With my 13 years of stay and experiences in PBEL, I truly understand our community's needs. Now, I am ready to serve and work for every resident with dedication.",
         contact: "+91-9542800023"
+      },
+      {
+        id: 14,
+        name: "Swati Patel",
+        ballotNo: 14,
+        vision: "United for Green, Healthy and Happy Living. Vote for Healthy Ward safe & pleasant Living for a healthy Lifestyle",
+        priorities: ["The entrance to our community should be a symbol of pride, welcoming all who enter with beauty and good vibes. A Beautiful & Green Gateway to Our Community", "Enhancing Community Greenery - Green spaces contribute to cleaner & healthier air, cooler surroundings, and better mental well-being. Encourage residents to participate in maintaining and expanding greenery can help"],
+        background: "N-1804 (since 2023), Human Resource Professional with 16+ Yrs of experience in Banking & Insurance sector From humble Gujarati family, firm belief in \"up in society\" Electing PCOA Executive Committee Member (Serial No.14) When 30th August 2025",
+        contact: ""
       },
       {
         id: 16,
         name: "Abhijit Awale",
         ballotNo: 16,
-        vision: "Better living through basic rights",
-        priorities: ["Road repair", "Solar-powered areas", "Flea Market", "Lift Maintenance", "Smart RFID entry"],
-        background: "Scientist, DRDO, 6 years in PBEL",
+        vision: "Basics are your right, better living is my promise.",
+        priorities: ["Approach road repair & better street lighting", "Solar-powered common areas", "Resident Flea Market - Food & festive stalls", "Regular Maintenance of Lifts & Kids park areas", "Shaded seating for kids & adults", "Smart RFID entry for vehicles", "Standard Rate Card for maids (fair for both sides)", "Focus on Transparency & Teamwork"],
+        background: "Scientist, DRDO, Ministry of Defence, A211, M702 - Resident of PBEL for 6 years.",
+        contact: ""
+      },
+      {
+        id: 17,
+        name: "Dr. Joginder Singh",
+        ballotNo: 17,
+        vision: "Together let us make PBEL safer & even better community.",
+        priorities: ["Work with management for long-term solutions for good quality water.", "Ensure due attention to the Sinking Fund with transparency for proper use.", "Further enhancing security protocols, efficient, economical management in in-house staff.", "Create medical facility such as charitable, blood tests, Strengthen delivery, visitor and traffic control management systems."],
+        background: "Hello everyone, my name is Joginder Singh Chhabra, resident of J Tower. I have served as a Senior Citizen. Defence An ex-cadet of National Defence Academy. Former Member position in our apartment association. Committee I possess the skills and dedication to effectively serve our community. * Vice Chair, DRDO Establishment Community Welfare Association - 5 years * Honorary Administrator, Charitable Medical Centre - 15 years * Founder Volunteer, Nishkam Seva Foundation - Active in medical & social service for the underprivileged",
+        contact: "90522 25780"
+      },
+      {
+        id: 18,
+        name: "Praveen P M",
+        ballotNo: 18,
+        vision: "Committed to transparency, community wellness",
+        priorities: ["Reinstate Water Treatment Plants for sustainable water", "Management - Automate Systems: Inventory, Ticket tracking, Asset Maintenance etc.", "Podium Driveway Rectification in coordination with builder", "Ensure Builder Handover with accountability", "Enhance Clinic Facility for residents' health and wellness"],
+        background: "Key Contributions 2023-2025 - Introduced 24/7 Ambulance/EMT service in PBEL city for Emergency readiness - Implemented Water Harvesting to replenish groundwater - Installed additional Compost Bins converting 1000kg/day of kitchen waste into compost - Coordinated with Indis to lay pipelines for open sewage near M & N towers - Resolved critical issues in the Sewage Treatment Plant (STP) - Enhanced Gardening & Landscaping to beautify PBEL - Launched Science Odyssey to inspire innovation in children - Enabled Wheelchair accessibility in basement",
+        contact: ""
+      },
+      {
+        id: 19,
+        name: "Vizai Kumar Devdas",
+        ballotNo: 19,
+        vision: "Peaceful coexistence of all strata in a safe environment - inclusive development for everyone.",
+        priorities: ["Maintenance & Safety - Regular audits, proactive upkeep, prompt hazard resolution.", "Financial Transparency - Clear, accountable budgeting of community funds.", "Infrastructure - Enhancing utilities & safety through resident-informed decisions.", "Community Engagement - Empowering youth & elders in voluntary initiatives."],
+        background: "Experience. Vision. Community. Itd. Chief Manager (SBI) with 30+ years of financial expertise, committed to PBEL City's inclusive and peaceful growth. Proven leadership in decision-making & problem-solving. Fully committed to addressing PBEL community challenges. Believes in cooperation, consensus, and democratic solutions. Flat no.D-1901",
+        contact: ""
+      },
+      {
+        id: 20,
+        name: "Tanmay Agrawal",
+        ballotNo: 20,
+        vision: "Together let's make PBEL safer, better, and more vibrant! Your Trusted Representative",
+        priorities: ["Security & Safety Enhancements", "Quick Resolution Of Resident Issues via Mygate Tickets With Proper Turnaround Time & A Follow-up", "Reducing Wastage In Common Court, Etc. Without Removing Existing Facilities Of PBEL Premises", "Beautification Of PBEL", "Smooth Builder Handover Transition/follow Up", "Every 2 & 4th Saturday PeelSmall Entrepreneurs Carnival Which Will Give Boost To Individual Businesses Every 3rd Saturday Outside Carnival.", "Fixing Maid Rate Card", "Solving Water Problems On Priority", "Parking Leakage", "Maintenance of Common Amenities", "Podium Roads Repair"],
+        background: "Assisted J Tower Residents With Concerns With Builder - Actively Pursued Handover Issues of J Tower - Supported Residents on Crematorium Issues",
         contact: ""
       },
       {
         id: 22,
         name: "David Dayakar Mesa",
         ballotNo: 22,
-        vision: "Every penny counts with transparency",
-        priorities: ["Solar Electricity", "Clean Water", "Maintenance", "Gate Redesign", "Financial Management"],
-        background: "40+ years Finance experience",
+        vision: "I will make your every penny count with optimization, transparency and trust",
+        priorities: ["Resolution of Solar Electricity Issues: I will actively pursue and expedite resolution of the pending solar electricity matters with the Government of Telangana to ensure cheaper rate of electricity.", "Clean Drinking Water & Rainwater Harvesting: Ensure access to safe drinking water and implement effective rainwater harvesting systems.", "Improved Maintenance & Repairs Focus on timely maintenance of amenities, including podium road repairs and addressing rainwater leakages.", "Safe & Accessible Main Gate Redesign or modify the main entrance for safer and easier access, especially for school-going children.", "Authentic Food Court/Restaurant: Work towards setting up a hygienic, reliable, and resident-friendly food court or restaurant.", "Fair Tariffs for Services: Ensure reasonable and transparent pricing for guest rooms, ambulance services, and club house usage.", "Builder Handover & Pending Work Completion: Actively pursue the builder to ensure complete handover and resolution of all pending issues.", "Transparent & Accountable Financial Management: I am committed to full transparency in the utilization of society funds. With my experience and financial expertise, I will implement a cost-control system backed by proper documentation and accountability at every step."],
+        background: "Resident Owner for 8 years, 40 + Years of experienced Professional in Finance, Accountancy, Auditing. Tenders, Leasing, Monitoring Cost Control systems M.Com, (Osmania University, Hyderabad) and MBA Finance (Madras University)",
         contact: ""
       },
       {
         id: 23,
         name: "Ritu Sharma",
         ballotNo: 23,
-        vision: "Commitment to community improvement",
-        priorities: ["Cleanliness", "Security", "Visitor Management", "Lighting", "Infrastructure"],
+        vision: "From the first day in office, I will work relentlessly to turn these commitments into reality. Together, we can make PBEL City cleaner, safer, and stronger.",
+        priorities: ["Cleanliness You Can See - Daily upkeep & strict waste management", "Security You Can Trust - Better CCTV, trained patrols & quick response", "Smart Visitor Management - Safe yet welcoming", "Bright Lighting Everywhere - Walkways, parking & common areas", "Lasting Infrastructure - Timely repairs & smart upgrades", "Water Solutions That Work - Leak fixes, steady supply & savings"],
         background: "",
+        contact: ""
+      },
+      {
+        id: 24,
+        name: "Ambalam Parthasarathi",
+        ballotNo: 24,
+        vision: "Make Your Voice Heard",
+        priorities: ["Prioritised Health Care - Contributed to bring 24*7 RED Ambulance to PBEL", "Resolve open community concerns. - Personal relationship to understand community concerns better"],
+        background: "",
+        contact: ""
+      },
+      {
+        id: 25,
+        name: "Siva Kumar Reddy",
+        ballotNo: 25,
+        vision: "I offer practical solutions and a commitment to our community's needs",
+        priorities: ["Ensure consistent and reliable Water Supply & Management", "Upgrade and maintain Gym Equipment for all age groups", "Expand and preserve Green Spaces across PBEL City", "Upgrade Kids Play Area for safety and enjoyment", "Enhance the Temple Area for peaceful gatherings", "Reduce hosting more affordable to make hosting more affordable", "Work toward lowering maintenance costs, including the sinking fund", "Strengthen Security Measures to ensure a safer living environment"],
+        background: "",
+        contact: ""
+      },
+      {
+        id: 26,
+        name: "Sreeja R Nair",
+        ballotNo: 26,
+        vision: "As a long-time resident of our community, I have closely experienced the day-to-day challenges we face - from water quality and maintenance to safety and traffic issues. My decision to stand for the Association election comes from a genuine desire to bring practical, transparent, and sustainable solutions that benefit every resident.",
+        priorities: ["Clear Water, Clean Spaces, Smooth Living. \"Pure water, hygienic spaces, and hassle-free living for all.\"", "Practical Solutions for a Better Community. \"Realistic actions that truly improve our daily lives.\"", "Together for a Safer, Cleaner, Happier Home. \"Building a secure, clean, and joyful community - together.\"", "Transparency, Accountability, Community First. \"Open decisions, honest updates, and residents always at the core.\"", "Your Voice, My Commitment. \"Every concern matters - and I promise to act on it.\""],
+        background: "Banking and Finance professional with 21 years experience, Living in PBEL with my family for last 10 years, Married and blessed with 2 children Passionate about building clean, safe, and resident-friendly neighbourhoods Believe in integrity, transparency, and inclusiveness Interests include gardening and volunteering Languages known English Malayalam Hindi Tamil Telugu Kannada In my previous community, I served as Treasurer, where I successfully managed finances with complete transparency and accountability. This role gave me valuable experience in budgeting, fund utilization, and building trust though open communication with residents.",
+        contact: ""
+      },
+      {
+        id: 27,
+        name: "Jaya Priyanka R",
+        ballotNo: 27,
+        vision: "AAPKA VOTE, AAPKI TAKAT",
+        priorities: ["Water Quality - Swift resolution with expert consultation from professionals.", "Maintenance Value - Maximise every rupee with accountability and efficiency.", "Asset Transition from Builder - Empowering the association for 2026 and beyond.", "Communication - Open and timely updates.", "Basement Driveways & Signage - Clear markings for safer movement.", "Community Safety & Care - Prioritization of women, children and senior citizens.", "Sustainability - Reduce, Reuse, Recycle."],
+        background: "Education: PGDBM - IIM Lucknow, MA Psychology (2nd Year, Amity University) Languages: Telugu, Hindi, Tamil, English & French (Basic) Expertise in system, service delivery, governance. 20+ years in Sales, Marketing, Operations & Customer Service (led teams of 5000+) Special Training: Sanghamitra Women's Safety (Cyberabad Police Commissionerate) Resident of Pbel since 2012",
+        contact: ""
+      },
+      {
+        id: 28,
+        name: "D Rajasekhar Chary",
+        ballotNo: 28,
+        vision: "I stand for action, accountability. I am transparent, and strong leader - I'm not a follower. I'm here to be your voice, not to under-lead. I'm committed to take action that brings real change.",
+        priorities: ["Stronger Security & Better Infrastructure", "Enhance charging stations to support sustainable living", "Pure Safe Water Supply", "Lower Maintenance Costs with Transparency", "Resident-First Approach - A dedicated area for community interactions, Discussions, and celebrations"],
+        background: "Resident of Tower -1602 J Software Professional (10+ Years in MNC)",
         contact: ""
       },
       {
         id: 30,
         name: "Vikas Kumar",
         ballotNo: 30,
-        vision: "Safer, stronger, beautiful PBEL",
-        priorities: ["Resident feedback", "Unauthorized access control", "Beautification", "Water supply", "Infrastructure"],
-        background: "B.Tech & MBA, 21+ years experience",
+        vision: "The Future Is In Your Hands! Make Your Voice Heard By Casting Your Vote, Every Decision, Every Ballot, And Every Voter Makes A Difference In Shaping The Community We Live In Together, let's build a safer, stronger, more beautiful, and more vibrant PBEL City!",
+        priorities: ["Encourage resident feedback and organize events that strengthen neighborly bonds.", "To ensure strict control against unauthorized access, particularly by delivery personnel or unknown individuals", "Beautifying PBEL City, especially entry points, to create a sense of pride and enhance quality of living.", "To create a hassle-free pathway, Upgrade the amenities while maintaining the available facilities", "Measures will be taken to provide a consistent, hygienic, and adequate water supply across the Community."],
+        background: "Accomplished professional with B.Tech & MBA having 21 yrs of Experience. Working as Country Head Onsite services.",
         contact: ""
+      },
+      {
+        id: 31,
+        name: "Nitin Reddy Yara",
+        ballotNo: 31,
+        vision: "Standards & Sustainability",
+        priorities: ["Democratic Decisions - through online polls", "Optimized Budgeting - earn smart, spend sharp", "Enhanced Amenities - live better", "Sustainable Living !! Cut power bills - live green with solar ☀ & rain ☔ - let's explore, let's save!!", "Safety and hygiene - essential and ensured"],
+        background: "PBEL FOR 7 YEARS BRAHMOS (DRDO)",
+        contact: ""
+      },
+      {
+        id: 32,
+        name: "Anubhab Mishra",
+        ballotNo: 32,
+        vision: "My Belief: PBEL is not just a collection of houses-it is a family, a community, and a shared space where we live, grow, and thrive together. I promise transparent governance, stronger community bonding, safety, and sustainable development.",
+        priorities: ["Transparency & Good Governance Cohesive decisions, open talks, open ideas. Regular updates - resident discussions. Responsible Builder-to-PCOA transition.", "Financial Discipline & Growth Clear & audited books of account for all. Support home entrepreneurs via society events.", "Community Development Facilitate festivals, sports & cultural vibes all year. Programs for kids, seniors, women & pet parents. More fun & learning for everyone.", "Infrastructure & Maintenance Address the repairs needed, work with authorities for road improvement, and upgrade the existing facilities. Smooth lifts, clean water & timely upkeep of society machinery.", "Safety & Security Address the gaps in current security measures. Fire safety - medical & disaster readiness.", "Sustainability & Environment Waste segregation, rainwater harvesting & solar. Enable a Green lifestyle for a cleaner tomorrow."],
+        background: "Overall 16+ yrs experience in T. Currently working as Senior Data Scientist for the COO office at Genpact. Resident for the last 6 years, active member of cultural and social communities within PBEL. Flat D-507",
+        contact: ""
+      },
+      {
+        id: 34,
+        name: "Dr. Harjinder Singh Cheema",
+        ballotNo: 34,
+        vision: "Let's make PBEL a model community we are all proud of.",
+        priorities: ["Increase Participation - Online GBMs / new ways for greater involvement", "Fair Charges - Rationalisation of monthly maintenance / Sports & Fitness - Organised coaching for all age groups", "Open & Accessible - Always available for your concerns"],
+        background: "I am Dr. H.S. Cheema, Retd. Professor of Statistics (PAU), PhD, and lifelong social worker. At 80 years, I bring time, commitment, and experience to serve our society with transparency and fairness. My family also lives in PBEL, so I understand the needs of children, working families, and senior citizens.",
+        contact: "98760-82720"
       },
       {
         id: 35,
         name: "Vijaya Kumar Rasala",
         ballotNo: 35,
-        vision: "Progress, safety, and sustainability",
-        priorities: ["Automation", "Transparency", "Maintenance", "Water quality", "Security", "Green energy"],
-        background: "20 years IT experience, PGWILP-AIML",
+        vision: "Your vote is your voice – together, let's shape a stronger, smarter, and safer community.",
+        priorities: ["Automation for Effortless Community Living.", "Transparency in decision-making and financial matters.", "Superior maintenance of all common amenities.", "Long-lasting solutions for internal roads.", "Better water quality with sustainable practices.", "Enhanced safety & Security for all residents.", "Clean & dry basements by fixing water leakages.", "Effective control of pigeon and mosquito issues.", "Green energy initiatives by exploring solar solutions.", "Ensuring sustainable greenery and Beautification."],
+        background: "A proud resident since 2018, bringing 20 years of IT experience with academic excellence in PGWILP-AIML (BITS Pilani), MBA & B.Tech. Flat No: G-1802",
         contact: "+91-9705500294"
+      },
+      {
+        id: 36,
+        name: "Upendra Singh",
+        ballotNo: 36,
+        vision: "Clean, safe Healthy Society System Automation, and Good Governance Futuristic and Sustainable Society Together, Let us build PBEL City a nice \"Home\" for all",
+        priorities: [],
+        background: "",
+        contact: ""
+      },
+      {
+        id: 38,
+        name: "Vishnu Vardhan Reddy Gurrala",
+        ballotNo: 38,
+        vision: "Committed to equality, inclusivity, and harmony for everyone in PBEL City We are all Indians first! We Have been serving society for a long time and stand by whenever needed. 15 Years of commitment to social welfare.",
+        priorities: ["Clean and Safe Water Supply Resolve dirty water issues, Complete pending water pipeline project.", "Fitness and Sports Facilities Upgrade to new gym equipment. Install wooden flooring in the badminton court. Infrastructure and Maintenance Repair damaged Internal CC roads, Fix water leakage in basement parking.", "Lighting and Safety Install sufficient street lights. Ensure reliable survey lines and robust security.", "Sanitation and Waste Management Implement modular garbage collection and proper disposal.", "Women and Child Safety Maintain safe and secure environments for women and children.", "Permanent Road Solution & Architect Entrance arch Develop a permanent solution for PBEL City T-Junction Road to ensure with govt. higher authorities, smooth traffic flow, reduced congestion, and long-term durability. Beautification of gardens and footpaths.", "Financial Transparency Clear sharing of income and expenses. Build trust through accountability."],
+        background: "",
+        contact: ""
+      },
+      {
+        id: 39,
+        name: "Usha Ramsisaria",
+        ballotNo: 39,
+        vision: "My vision for PBEL City is",
+        priorities: ["To empower Ladies and Senior citizens", "To make PBEL Campus more greener", "To get expert guidance from senior citizens and expert persons residing in PBEL", "To maintain financial discipline proper and transparent use of funds", "To keep solving the issues raised by residents on regular basis", "To install flat owners name plate in the lobby of each towers", "To conduct regular meetings as per by laws", "To conduct cost meeting as valuable"],
+        background: "Having 25 years of experience in Industrial Development PBEL Owner's Association GB Election",
+        contact: "9502678819"
       }
     ];
 
@@ -205,7 +358,7 @@
 
       const CandidateProfiles = () => (
         <div className="space-y-6">
-          <div className="grid gap-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {candidates.map(candidate => (
               <div
                 key={candidate.id}
