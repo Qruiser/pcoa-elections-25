@@ -11,15 +11,12 @@
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
   <!-- Babel CDN for JSX -->
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
-  <!-- Lucide-React CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/lucide-react@0.263.0/dist/umd/lucide-react.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
 
   <script type="text/babel">
     const { useState, useMemo } = React;
-    const { User, BarChart3, Grid3X3, FileText } = window.lucide;
 
     // Candidate data
     const candidates = [
@@ -185,11 +182,11 @@
       const ViewToggle = () => (
         <div className="flex flex-wrap gap-2 mb-6 p-1 bg-slate-100 rounded-lg">
           {[
-            { id: 'profiles', label: 'Candidate Profiles', icon: User },
-            { id: 'comparison', label: 'Issue Comparison', icon: BarChart3 },
-            { id: 'matrix', label: 'Comparison Matrix', icon: Grid3X3 },
-            { id: 'summary', label: 'Issue Summary', icon: FileText }
-          ].map(({ id, label, icon: Icon }) => (
+            { id: 'profiles', label: 'Candidate Profiles', icon: '👤' },
+            { id: 'comparison', label: 'Issue Comparison', icon: '📊' },
+            { id: 'matrix', label: 'Comparison Matrix', icon: '🔲' },
+            { id: 'summary', label: 'Issue Summary', icon: '📄' }
+          ].map(({ id, label, icon }) => (
             <button
               key={id}
               onClick={() => setActiveView(id)}
@@ -199,7 +196,7 @@
                   : 'text-slate-600 hover:bg-slate-200 hover:text-slate-800'
               }`}
             >
-              <Icon size={16} />
+              <span className="text-base">{icon}</span>
               {label}
             </button>
           ))}
